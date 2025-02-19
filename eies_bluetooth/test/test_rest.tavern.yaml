@@ -1,0 +1,11 @@
+test_name: Test POST on control
+
+stages:
+  - name: Set LED
+    request:
+      url: http://localhost:13131/control
+      method: POST
+      json:
+        LED: "happy"
+    response:
+      status_code: 200
