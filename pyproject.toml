@@ -1,0 +1,54 @@
+[project]
+name = "eies"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Volker Goehler",email = "volker.goehler@informatik.tu-freiberg.de"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "Flask~=3.1.0",
+    "pybluez @ git+https://github.com/pybluez/pybluez.git",
+    #   "rgbmatrix @ git+https://github.com/vgoehler/rpi-rgb-led-64x64-matrix-py.git#subdirectory=bindings/python",
+    "rgbmatrix",
+    "pyzmq~=26.2.1",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.dependencies]
+rgbmatrix = {path = "rpi-rgb-led-64x64-matrix-py/bindings/python"}
+
+[tool.poetry.group.test.dependencies]
+pytest = ">=7.2.2"
+tavern = ">=2.11.0"
+coverage = ">=6"
+
+[tool.poetry.scripts]
+
+# PYTEST
+[tool.pytest.ini_options]
+testpaths = [
+    "eies_bluetooth/test",
+    "emotion_light/tests"
+]
+markers = [
+    "integration: integration tests, should only be run separately"
+]
+addopts = '--verbose'
+minversion = "6.0"
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning"
+]
+pythonpath = [
+    "emotion_light",
+    "eies_bluetooth",
+]
