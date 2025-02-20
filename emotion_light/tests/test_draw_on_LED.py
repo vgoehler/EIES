@@ -4,7 +4,7 @@ from emotion_light.ledpanelemotioncontroller import LEDPanelEmotionController
 
 @pytest.fixture
 def panel(mock_canvas):
-    panel = LEDPanelEmotionController(64, 64)
+    panel = LEDPanelEmotionController()
     panel.canvas = mock_canvas
     panel.canvas_dimensions = {
         "top": {"x_start": 0, "x_end": 63, "y_start": 0, "y_end": 20},

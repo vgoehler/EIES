@@ -1,5 +1,8 @@
 test_name: Test POST on control
 
+marks:
+  - integration
+
 stages:
   - name: Set LED
     request:
