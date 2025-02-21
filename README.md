@@ -15,6 +15,11 @@ Emotion Intent Evoking System
 - also in *rpi-rgb-led-64x64-matrix-py* -> ``` make install-python ```
 - pip will install rgbmatrix into your current environment
 - if you are using poetry, you don't have to do any of this
+- but we need cython for compiling the sources;
+     - I did a work around
+     - after poetry failed I activated the venv ```$HOME/.cache/pypoetry/virtualenvs```
+     - then installed cython with pip  ```pip install cython```
+     - TODO: need to automate this in the makefile
 
 ### install libraries
 
