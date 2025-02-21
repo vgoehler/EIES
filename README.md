@@ -6,19 +6,19 @@ Emotion Intent Evoking System
 ### rpi-rgb-led-64x64-matrix-py
 
 - this is my fork of [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix)
-- fixes to a 64x64 matrix
-- some bug fixes
+- fixed to a 64x64 matrix
+- some bug fixes, mainly installer
 
 #### install
 
-- install venv
-- source it
-- install cython
 - in *rpi-rgb-led-64x64-matrix-py* -> ``` make build-python ```
+- also in *rpi-rgb-led-64x64-matrix-py* -> ``` make install-python ```
+- pip will install rgbmatrix into your current environment
+- if you are using poetry, you don't have to do any of this
 
 ### install libraries
 
-- then run ``` poetry install ```
+- run ``` poetry install ```
 
 ### Build-System Notes
 
