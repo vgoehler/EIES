@@ -18,6 +18,7 @@ Emotion Intent Evoking System
 
 ### install libraries
 
+- we need bluetooth! ```sudo apt-get install libbluetooth-dev```
 - run ``` poetry install ```
 
 ### Build-System Notes
