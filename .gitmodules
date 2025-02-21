@@ -1,0 +1,3 @@
+[submodule "rpi-rgb-led-64x64-matrix-py"]
+	path = rpi-rgb-led-64x64-matrix-py
+	url = https://github.com/vgoehler/rpi-rgb-led-64x64-matrix-py.git
