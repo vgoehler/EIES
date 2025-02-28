@@ -13,6 +13,7 @@ dependencies = [
     #   "rgbmatrix @ git+https://github.com/vgoehler/rpi-rgb-led-64x64-matrix-py.git#subdirectory=bindings/python",
     "rgbmatrix",
     "pyzmq~=26.2.1",
+    "pydub (>=0.25.1,<0.26.0)",
 ]
 
 
