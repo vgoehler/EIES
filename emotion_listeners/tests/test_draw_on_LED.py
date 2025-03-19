@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import MagicMock
-from emotion_light.ledpanelemotioncontroller import LEDPanelEmotionController
+from emotion_listeners.ledpanelemotioncontroller import LEDPanelEmotionController
 
 @pytest.fixture
 def panel(mock_canvas):

@@ -1,5 +1,5 @@
 import pytest
-from emotion_light.ledpanelemotioncontroller import LEDPanelEmotionController
+from emotion_listeners.ledpanelemotioncontroller import LEDPanelEmotionController
 
 
 @pytest.fixture
