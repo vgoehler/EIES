@@ -1,6 +1,6 @@
 [project]
 name = "eies"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = [
     {name = "Volker Goehler",email = "volker.goehler@informatik.tu-freiberg.de"}
@@ -37,8 +37,8 @@ coverage = ">=6"
 # PYTEST
 [tool.pytest.ini_options]
 testpaths = [
-    "eies_bluetooth/test",
-    "emotion_light/tests"
+    "eies_bluetooth/tests",
+    "emotion_listeners/tests"
 ]
 markers = [
     "integration: integration tests, should only be run separately"
@@ -50,6 +50,6 @@ filterwarnings = [
     "ignore::DeprecationWarning"
 ]
 pythonpath = [
-    "emotion_light",
+    "emotion_listeners",
     "eies_bluetooth",
 ]
