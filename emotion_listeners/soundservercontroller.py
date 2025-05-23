@@ -8,13 +8,14 @@ from zmq_server_controllers import BaseZMQListener
 from pydub import AudioSegment
 from pydub.playback import play
 
+DEFAULT_ZMQ_ADDRESS = "tcp://localhost:5555"
 
 class SoundListenerController(BaseZMQListener):
     """
     Derived class for handling sound-related payloads via ZMQ server.
     """
 
-    def __init__(self, address: str = "tcp://*:5555"):
+    def __init__(self, address: str = DEFAULT_ZMQ_ADDRESS):
         super().__init__(address)
 
     def process(self, message: Dict[str, Any]):

@@ -9,7 +9,7 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 
 from zmq_server_controllers import BaseZMQListener
 
-DEFAULT_ZMQ_ADDRESS = "tcp://*:5555"
+DEFAULT_ZMQ_ADDRESS = "tcp://localhost:5555"
 DEFAULT_BRIGHTNESS = 100
 DEFAULT_MATRIX_ROWS = 64
 DEFAULT_MATRIX_COLS = 64

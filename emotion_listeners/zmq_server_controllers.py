@@ -11,10 +11,9 @@ class BaseZMQListener(ABC):
     Derived classes should handle specific types of payloads.
     """
 
-    DEFAULT_ZMQ_ADDRESS = "tcp://*:5555"  # Default listen address
     LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"  # Log format
 
-    def __init__(self, address: str = DEFAULT_ZMQ_ADDRESS, loglevel: int = logging.INFO):
+    def __init__(self, address: str, loglevel: int = logging.INFO):
         """
         Initialize the ZMQ listener.
         :param address: ZMQ listen address
