@@ -11,7 +11,7 @@
       <excludeFolder url="file://$MODULE_DIR$/rpi-rgb-led-64x64-matrix-py/bindings/python/build" />
       <excludeFolder url="file://$MODULE_DIR$/rpi-rgb-led-64x64-matrix-py/bindings/python/rgbmatrix.egg-info" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 virtualenv at ~/.cache/pypoetry/virtualenvs/eies-iY4RMklH-py3.11" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Poetry (eies) (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
