@@ -6,7 +6,7 @@ authors = [
     {name = "Volker Goehler",email = "volker.goehler@informatik.tu-freiberg.de"}
 ]
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.12"
 dependencies = [
     "Flask~=3.1.0",
     "pybluez @ git+https://github.com/pybluez/pybluez.git",
