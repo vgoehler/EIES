@@ -35,7 +35,31 @@ Emotion Intent Evoking System
 ## Server
 
 The Server runs the Bluetooth Server and is contactable over REST.
-It accepts a POST Json {LED: emotion}
+It accepts a POST Json:
+
+## LED Panel Emotion Controller
+
+```json
+{
+"action": "draw",
+"emotion": ["fear"|"happiness"|"disgust"|"anger"|"surprise"|"neutral"|"sadness"|"contempt"]
+}
+```
+- see the `Emotion` enum in `emotions.py`.
+
+## Sound Listener Controller
+
+```json
+{
+"action": "play",
+"emotion": ["fear"|"happiness"|"disgust"|"anger"|"surprise"|"neutral"|"sadness"|"contempt"],
+"duration": (int),
+"fade_time": (int)
+}
+```
+- see the `Emotion` enum in `emotions.py`
+- duration in seconds is an `int`
+- fade_time in milliseconds is an `int`
 
 ## Client
 
