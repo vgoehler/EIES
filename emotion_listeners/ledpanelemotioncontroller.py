@@ -101,7 +101,10 @@ class LEDPanelEmotionController(BaseZMQListener):
                                 (self.canvas_height - self.canvas_dimensions['bottom']['y_start'])
         total_fillable_width = self.canvas_dimensions['left']['x_end'] + \
                                (self.canvas_width - self.canvas_dimensions['right']['x_start'])
-        if total_fillable_height >= self.canvas_height or total_fillable_width >= self.canvas_width:
+        self.logger.debug(f"Total fillable height: {total_fillable_height}, total fillable width: {total_fillable_width}."
+                          f": Canvas height: {self.canvas_height}, canvas width: {self.canvas_width}")
+        # we set our coords starting with 0 and running to the last drawable pixel, that why we need to compensate (+1)
+        if total_fillable_height+1 >= self.canvas_height or total_fillable_width+1 >= self.canvas_width:
             self.canvas.Fill(red, green, blue)
             return
         # Partial area rendering
