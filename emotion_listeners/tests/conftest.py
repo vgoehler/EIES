@@ -20,6 +20,9 @@ def ledpanel_controller_bare(monkeypatch):
     # Override the __init__ to do nothing
     monkeypatch.setattr(LEDPanelEmotionController, "__init__", lambda self: None)
     instance = LEDPanelEmotionController()
+    # set members so that we don't get errors in the del
+    instance.socket = None
+    instance.context = None
     instance.canvas = CanvasStub(1920, 1080)
     return instance
 
