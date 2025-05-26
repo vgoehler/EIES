@@ -1,6 +1,4 @@
-import pytest
-from unittest.mock import patch, MagicMock, call
-from soundservercontroller import SoundListenerController
+from unittest.mock import patch, MagicMock
 
 
 def test_process_valid_payload(controller_instance):
