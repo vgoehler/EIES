@@ -6,14 +6,15 @@ authors = [
     {name = "Volker Goehler",email = "volker.goehler@informatik.tu-freiberg.de"}
 ]
 readme = "README.md"
-requires-python = ">=3.11,<3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "Flask~=3.1.0",
     "pybluez @ git+https://github.com/pybluez/pybluez.git",
     #   "rgbmatrix @ git+https://github.com/vgoehler/rpi-rgb-led-64x64-matrix-py.git#subdirectory=bindings/python",
     "rgbmatrix",
     "pyzmq~=26.2.1",
-    "pydub (>=0.25.1,<0.26.0)",
+    #"pydub (>=0.25.1,<0.26.0)",
+    "pydub @ git+https://github.com/jiaaro/pydub.git@master"
 ]
 
 
