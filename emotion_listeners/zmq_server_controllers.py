@@ -24,6 +24,12 @@ class BaseZMQListener(ABC):
         self.socket = self._initialize_socket()
         self.logger = self._setup_logger(loglevel)
 
+    def __del__(self):
+        if self.socket:
+            self.socket.close()
+        if self.context:
+            self.context.term()
+
     def _setup_logger(self, loglevel: int) -> logging.Logger:
         """
         Set up and return a logger instance.
