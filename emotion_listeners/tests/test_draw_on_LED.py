@@ -1,31 +1,5 @@
-import pytest
-from unittest.mock import MagicMock
-from emotion_listeners.ledpanelemotioncontroller import LEDPanelEmotionController
-
-@pytest.fixture
-def panel(mock_canvas):
-    panel = LEDPanelEmotionController()
-    panel.canvas = mock_canvas
-    panel.canvas_dimensions = {
-        "top": {"x_start": 0, "x_end": 63, "y_start": 0, "y_end": 20},
-        "bottom": {"x_start": 0, "x_end": 63, "y_start": 30, "y_end": 63},
-        "left": {"x_start": 0, "x_end": 20, "y_start": 20, "y_end": 30},
-        "right": {"x_start": 30, "x_end": 63, "y_start": 20, "y_end": 30}
-    }
-    return panel
-
-@pytest.fixture
-def mock_canvas():
-    canvas_mock = MagicMock()
-    canvas_mock.SetPixel = MagicMock()
-    canvas_mock.Fill = MagicMock()
-    canvas_mock.brightness = 100
-    canvas_mock.width = 64
-    canvas_mock.height = 64
-    return canvas_mock
-
 def test_brightness_zero(panel, mock_canvas):
-    panel.draw_on_canvas(255, 0, 0, brightness=0)
+    panel._fill_canvas(255, 0, 0, brightness=0)
 
     # Ensure SetPixel was never called when brightness is zero
     mock_canvas.SetPixel.assert_not_called()
@@ -33,7 +7,7 @@ def test_brightness_zero(panel, mock_canvas):
 def test_brightness_zero_full_screen(panel, mock_canvas):
     panel.canvas_dimensions.update({"top": {"x_start": 0, "x_end": 63, "y_start": 0, "y_end": 63}})
 
-    panel.draw_on_canvas(255, 255, 255, brightness=0)
+    panel._fill_canvas(255, 255, 255, brightness=0)
 
     # Ensure Fill was never called when brightness is zero
     mock_canvas.Fill.assert_not_called()
@@ -42,14 +16,14 @@ def test_brightness_zero_full_screen(panel, mock_canvas):
 def test_full_screen_optimization(panel, mock_canvas):
     panel.canvas_dimensions["top"] = {"x_start": 0, "x_end": 63, "y_start": 0, "y_end": 63}
 
-    panel.draw_on_canvas(255, 255, 255)
+    panel._fill_canvas(255, 255, 255)
 
     # Ensure Fill was called instead of SetPixel for full screen
     mock_canvas.Fill.assert_called_once_with(255, 255, 255)
     mock_canvas.SetPixel.assert_not_called()
 
 def test_normal_case(panel, mock_canvas):
-    panel.draw_on_canvas(255, 255, 255)
+    panel._fill_canvas(255, 255, 255)
 
     # Collect all expected pixels
     expected_pixels = set()
@@ -72,7 +46,7 @@ def test_partial_top_full_bottom_fill(panel, mock_canvas):
         "bottom": {"x_start": 0, "x_end": 63, "y_start": 0, "y_end": 63}
     })
 
-    panel.draw_on_canvas(255, 255, 255)
+    panel._fill_canvas(255, 255, 255)
 
     # Ensure Fill was called for the full screen case
     mock_canvas.Fill.assert_called_once_with(255, 255, 255)
@@ -84,7 +58,7 @@ def test_full_top_full_bottom_fill(panel, mock_canvas):
         "bottom": {"x_start": 0, "x_end": 63, "y_start": 32, "y_end": 63}
     })
 
-    panel.draw_on_canvas(255, 255, 255)
+    panel._fill_canvas(255, 255, 255)
 
     # Ensure Fill was called for the full screen case
     mock_canvas.Fill.assert_called_once_with(255, 255, 255)
