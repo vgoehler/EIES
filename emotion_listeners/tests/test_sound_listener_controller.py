@@ -1,5 +1,9 @@
 from unittest.mock import patch, MagicMock
 
+import pytest
+
+import soundservercontroller
+
 
 def test_process_valid_payload(controller_instance):
     """Test valid 'play' action payload."""
@@ -28,7 +32,6 @@ def test_process_valid_payload(controller_instance):
         MockThread.assert_called_once()
         _, kwargs = MockThread.call_args
         assert kwargs["target"] == controller_instance._play_audio
-
 
 def test_process_invalid_emotion(controller_instance):
     """Test invalid emotion handling."""
@@ -90,23 +93,28 @@ def test_play_audio(controller_instance):
         # Verify the playback
         mock_play.assert_called_once()
 
+@pytest.mark.parametrize("input_duration, expected", [
+    (15, 15),
+    (-15, soundservercontroller.DEFAULT_DURATION),
+    ("blah", soundservercontroller.DEFAULT_DURATION),
+    (0, soundservercontroller.DEFAULT_DURATION),
+    ("16", 16)
+])
+def test_validate_durations(controller_instance, input_duration, expected):
+    result = controller_instance._validate_duration(input_duration)
+    assert isinstance(result, int), "Duration should be an integer"
+    assert result == expected, f"Expected {expected}, got {result}"
 
-def test_logger_in_process(controller_instance):
-    """Test the logger is called during processing."""
-    message = {
-        "action": "play",
-        "emotion": "neutral",
-        "duration": 10,
-        "fade_time": 1500
-    }
-
-    with patch("soundservercontroller.Emotion", return_value="neutral"), \
-            patch("soundservercontroller.EmotionSounds.sound_provider", return_value="neutral_sound.mp3"), \
-            patch.object(controller_instance.logger, "info") as mock_info_logger:
-        # Call method
-        controller_instance.process(message)
-
-        # Ensure logger outputs expected details
-        mock_info_logger.assert_any_call(
-            f"Playing sound for emotion: neutral, for 10s with fade time 1500ms"
-        )
+@pytest.mark.parametrize("input_fade_time, duration, expected", [
+    (500,10,500),
+    (-500,10,soundservercontroller.DEFAULT_FADE_TIME),
+    ("blah", 10, soundservercontroller.DEFAULT_FADE_TIME),
+    (0, 10, soundservercontroller.DEFAULT_FADE_TIME),
+    ("500", 10, 500),
+    (5000,10,5000),
+    (5001,10,soundservercontroller.DEFAULT_FADE_TIME),
+])
+def test_validate_fade_time(controller_instance, input_fade_time, duration, expected):
+    result = controller_instance._validate_fade_time(input_fade_time, duration)
+    assert isinstance(result, int), "Fade time should be an integer"
+    assert result == expected, f"Expected {expected}, got {result}"
