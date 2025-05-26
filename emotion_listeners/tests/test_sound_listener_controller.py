@@ -3,12 +3,6 @@ from unittest.mock import patch, MagicMock, call
 from soundservercontroller import SoundListenerController
 
 
-@pytest.fixture
-def controller_instance():
-    """Fixture to create an instance of the controller."""
-    return SoundListenerController()
-
-
 def test_process_valid_payload(controller_instance):
     """Test valid 'play' action payload."""
     valid_message = {

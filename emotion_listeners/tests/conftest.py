@@ -1,5 +1,6 @@
 import pytest
 from emotion_listeners.ledpanelemotioncontroller import LEDPanelEmotionController
+from soundservercontroller import SoundListenerController
 
 
 class CanvasStub(object):
@@ -21,3 +22,9 @@ def ledpanel_controller_bare(monkeypatch):
     instance = LEDPanelEmotionController()
     instance.canvas = CanvasStub(1920, 1080)
     return instance
+
+@pytest.fixture
+def controller_instance():
+    """Fixture to create an instance of the controller."""
+    return SoundListenerController()
+
