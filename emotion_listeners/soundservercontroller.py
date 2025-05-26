@@ -8,6 +8,10 @@ from zmq_server_controllers import BaseZMQListener
 from pydub import AudioSegment
 from pydub.playback import play
 
+DEFAULT_FADE_TIME = 1000
+
+DEFAULT_DURATION = 10
+
 DEFAULT_ZMQ_ADDRESS = "tcp://localhost:5555"
 
 class SoundListenerController(BaseZMQListener):
@@ -28,8 +32,8 @@ class SoundListenerController(BaseZMQListener):
         if message.get("action") == "play":
             try:
                 emotion = Emotion(message.get("emotion"))
-                duration = message.get("duration", 10)
-                fade_time = message.get("fade_time", 1000)
+                duration = message.get("duration", DEFAULT_DURATION)
+                fade_time = message.get("fade_time", DEFAULT_FADE_TIME)
                 self.logger.info(f"Playing sound for emotion: {emotion}, for {duration}s with fade time {fade_time}ms")
                 filename = EmotionSounds.sound_provider(emotion)
                 threading.Thread(target=self._play_audio, args=(filename, duration, fade_time), daemon=True).start()
@@ -55,6 +59,33 @@ class SoundListenerController(BaseZMQListener):
 
         play(full_sound)
 
+    def _safeguard_non_negative_int(self, number: int):
+        try:
+            int_nr = int(number)
+            if int_nr < 0:
+                raise ValueError("Number must be non-negative")
+            return int_nr
+        except (ValueError, TypeError):
+            self.logger.error(f"Invalid number: {number}")
+            return None
+
+    def _validate_duration(self, duration: int):
+        dur = self._safeguard_non_negative_int(duration)
+        if not dur:
+            return DEFAULT_DURATION
+        else:
+            return dur
+
+    def _validate_fade_time(self, fade_time: int, duration: int):
+        ft = self._safeguard_non_negative_int(fade_time)
+        if not ft:
+            return DEFAULT_FADE_TIME
+        else:
+            if ft > duration * 500:
+                self.logger.warning(f"Fade time ({ft} ms) is longer than half of duration ({duration} sec).")
+                return DEFAULT_FADE_TIME
+            else:
+                return ft
 
 if __name__ == "__main__":
     sound_server = SoundListenerController()
